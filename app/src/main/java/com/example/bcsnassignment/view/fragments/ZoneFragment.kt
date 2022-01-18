@@ -1,4 +1,4 @@
-package com.example.bcsnassignment.view
+package com.example.bcsnassignment.view.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

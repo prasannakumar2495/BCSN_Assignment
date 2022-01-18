@@ -11,7 +11,8 @@
         <entry key="app/src/main/res/layout/fragment_spot.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_spot2.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_two.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_zone.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_zone.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/recyclerviewlayout.xml" value="0.25" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.25" />
       </map>
     </option>
