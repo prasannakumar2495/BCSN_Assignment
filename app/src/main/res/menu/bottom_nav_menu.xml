@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/fragment_1"
+        android:icon="@drawable/ic_baseline_ondemand_video_24"
+        android:title="@string/media_player"
+        />
+    <item
+        android:id="@+id/fragment_two"
+        android:icon="@drawable/ic_baseline_music_note_24"
+        android:title="@string/market"
+        />
+    <item
+        android:id="@+id/fragment_3"
+        android:icon="@drawable/ic_baseline_book_24"
+        android:title="@string/bookmark"
+        />
+    <item
+        android:id="@+id/fragment_4"
+        android:icon="@drawable/ic_baseline_web_24"
+        android:title="@string/news"
+        />
+
+</menu>
