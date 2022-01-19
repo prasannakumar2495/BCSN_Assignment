@@ -12,6 +12,9 @@ import com.example.bcsnassignment.R
 import com.example.bcsnassignment.model.BinanceAPIItem
 import com.example.bcsnassignment.model.BinanceInterface
 import com.example.bcsnassignment.viewmodel.BCSNRecyclerAdapter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -41,31 +44,35 @@ class SpotFragment : Fragment() {
         getMyData(view)
     }
 
-    private fun getMyData(view: View) {
-        val retrofitBuilder =
-            Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl(baseURL)
-                .build().create(BinanceInterface::class.java)
+    private fun getMyData(view: View) = runBlocking {
+        launch(Dispatchers.IO) {
+            Log.d("Current thread is: ", Thread.currentThread().name)
+            val retrofitBuilder =
+                Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())
+                    .baseUrl(baseURL)
+                    .build().create(BinanceInterface::class.java)
 
-        //next variable is to get the data from the retrofit builder object that is above.
-        val retrofitData = retrofitBuilder.getData()
+            //next variable is to get the data from the retrofit builder object that is above.
+            val retrofitData = retrofitBuilder.getData()
 
-        retrofitData.enqueue(object : Callback<List<BinanceAPIItem>?> {
-            override fun onResponse(
-                call: Call<List<BinanceAPIItem>?>,
-                response: Response<List<BinanceAPIItem>?>
-            ) {
-                val responseBody = response.body()!!
+            retrofitData.enqueue(object : Callback<List<BinanceAPIItem>?> {
+                override fun onResponse(
+                    call: Call<List<BinanceAPIItem>?>,
+                    response: Response<List<BinanceAPIItem>?>
+                ) {
+                    val responseBody = response.body()!!
 
-                myAdapter = BCSNRecyclerAdapter(context!!, responseBody)
-                myAdapter?.notifyDataSetChanged()
-                val recyclerViewSpot = view.findViewById<RecyclerView>(R.id.recyclerViewSpot)
-                recyclerViewSpot.adapter = myAdapter
-            }
+                    myAdapter = BCSNRecyclerAdapter(context!!, responseBody)
+                    myAdapter?.notifyDataSetChanged()
+                    val recyclerViewSpot = view.findViewById<RecyclerView>(R.id.recyclerViewSpot)
+                    recyclerViewSpot.adapter = myAdapter
+                }
 
-            override fun onFailure(call: Call<List<BinanceAPIItem>?>, t: Throwable) {
-                Log.d("MainActivity", "onFailure: " + t.message)
-            }
-        })
+                override fun onFailure(call: Call<List<BinanceAPIItem>?>, t: Throwable) {
+                    Log.d("MainActivity", "onFailure: " + t.message)
+                }
+            })
+        }
     }
 
 }

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bcsnassignment.R
 import com.example.bcsnassignment.model.BinanceAPIItem
 
-class BCSNRecyclerAdapter(val contextBCSN: Context, val userList: List<BinanceAPIItem>) :
+class BCSNRecyclerAdapter(val contextBCSN: Context, private val userList: List<BinanceAPIItem>) :
     RecyclerView.Adapter<BCSNRecyclerAdapter.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var volume: TextView = itemView.findViewById(R.id.recyclerTV2)
