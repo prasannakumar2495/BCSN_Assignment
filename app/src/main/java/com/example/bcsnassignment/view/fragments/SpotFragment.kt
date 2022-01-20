@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bcsnassignment.R
@@ -24,6 +26,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 const val baseURL = "https://www.binance.com/api/v3/ticker/"
 
 class SpotFragment : Fragment() {
+    private val page: Int = 1
+    private val limit: Int = 10
     var myAdapter: BCSNRecyclerAdapter? = null
     private lateinit var linearLayoutManager: LinearLayoutManager
 
@@ -38,13 +42,17 @@ class SpotFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val recyclerViewSpot = view.findViewById<RecyclerView>(R.id.recyclerViewSpot)
+
         recyclerViewSpot.setHasFixedSize(true)
         linearLayoutManager = LinearLayoutManager(myAdapter?.contextBCSN)
         recyclerViewSpot.layoutManager = linearLayoutManager
-        getMyData(view)
+        getMyData(view, page, limit)
     }
 
-    private fun getMyData(view: View) = runBlocking {
+
+    private fun getMyData(view: View, page: Int, limit: Int) = runBlocking {
+        val nestedScroll = view.findViewById<NestedScrollView>(R.id.nestedScrollView)
+        val progressBar = view.findViewById<ProgressBar>(R.id.progressBar)
         launch(Dispatchers.IO) {
             Log.d("Current thread is: ", Thread.currentThread().name)
             val retrofitBuilder =
@@ -61,7 +69,7 @@ class SpotFragment : Fragment() {
                     response: Response<List<BinanceAPIItem>?>
                 ) {
                     val responseBody = response.body()!!
-
+                   // progressBar.visibility.run { View.GONE }
                     myAdapter = BCSNRecyclerAdapter(context!!, responseBody)
                     myAdapter?.notifyDataSetChanged()
                     val recyclerViewSpot = view.findViewById<RecyclerView>(R.id.recyclerViewSpot)

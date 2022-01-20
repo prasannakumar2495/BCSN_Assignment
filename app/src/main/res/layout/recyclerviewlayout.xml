@@ -154,6 +154,14 @@
                     tools:ignore="RtlCompat"
                     />
             </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/LL4"
+                android:visibility="gone"
+                />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>
